@@ -169,7 +169,7 @@ const Dashboard = () => {
                         </span>
                       </div>
                       <div className="flex space-x-2">
-                        {trip.packingList && (
+                        
                           <Link
                             to={`/packing/${trip._id}`}
                             className="p-2 text-gray-400 hover:text-primary-600"
@@ -177,7 +177,7 @@ const Dashboard = () => {
                           >
                             <Package className="h-4 w-4" />
                           </Link>
-                        )}
+                        
                       </div>
                     </div>
                   ))}

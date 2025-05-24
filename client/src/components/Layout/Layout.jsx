@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { 
   Home, 
   BarChart3, 
@@ -14,8 +16,9 @@ import {
 const Layout = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // Mock auth state for demo
-  const user = { name: "John Doe", email: "john@example.com" };
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  console.log("user", user);
   const isAuthenticated = true;
 
   const handleLogout = () => {

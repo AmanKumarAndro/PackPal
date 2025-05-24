@@ -33,14 +33,15 @@ const PackingList = () => {
     try {
       setLoading(true);
       const response = await packingAPI.getPackingList(tripId);
-      setPackingList(response.data);
+      // Handle the nested response structure
+      setPackingList(response.data.packingList || response.data);
     } catch (error) {
       console.error('Error fetching packing list:', error);
       // If no packing list exists, create one
       if (error.response?.status === 404) {
         try {
           const createResponse = await packingAPI.createPackingList(tripId);
-          setPackingList(createResponse.data);
+          setPackingList(createResponse.data.packingList || createResponse.data);
         } catch (createError) {
           console.error('Error creating packing list:', createError);
         }
@@ -54,7 +55,7 @@ const PackingList = () => {
     try {
       setLoadingAI(true);
       const response = await packingAPI.generateAIPackingList(tripId);
-      setPackingList(response.data);
+      setPackingList(response.data.packingList || response.data);
     } catch (error) {
       console.error('Error generating AI packing list:', error);
     } finally {
@@ -67,7 +68,7 @@ const PackingList = () => {
 
     try {
       const response = await packingAPI.addCategory(tripId, { name: newCategoryName });
-      setPackingList(response.data);
+      setPackingList(response.data.packingList || response.data);
       setNewCategoryName('');
       setShowAddCategory(false);
     } catch (error) {
@@ -82,7 +83,7 @@ const PackingList = () => {
 
     try {
       const response = await packingAPI.deleteCategory(tripId, categoryId);
-      setPackingList(response.data);
+      setPackingList(response.data.packingList || response.data);
     } catch (error) {
       console.error('Error deleting category:', error);
     }
@@ -97,7 +98,7 @@ const PackingList = () => {
         quantity: 1,
         priority: 'important'
       });
-      setPackingList(response.data);
+      setPackingList(response.data.packingList || response.data);
       setNewItems(prev => ({ ...prev, [categoryId]: '' }));
     } catch (error) {
       console.error('Error adding item:', error);
@@ -107,7 +108,7 @@ const PackingList = () => {
   const toggleItemPacked = async (categoryId, itemId) => {
     try {
       const response = await packingAPI.toggleItemPacked(tripId, categoryId, itemId);
-      setPackingList(response.data);
+      setPackingList(response.data.packingList || response.data);
     } catch (error) {
       console.error('Error toggling item:', error);
     }
@@ -116,7 +117,7 @@ const PackingList = () => {
   const updateItem = async (categoryId, itemId, itemData) => {
     try {
       const response = await packingAPI.updateItem(tripId, categoryId, itemId, itemData);
-      setPackingList(response.data);
+      setPackingList(response.data.packingList || response.data);
     } catch (error) {
       console.error('Error updating item:', error);
     }
@@ -125,7 +126,7 @@ const PackingList = () => {
   const deleteItem = async (categoryId, itemId) => {
     try {
       const response = await packingAPI.deleteItem(tripId, categoryId, itemId);
-      setPackingList(response.data);
+      setPackingList(response.data.packingList || response.data);
     } catch (error) {
       console.error('Error deleting item:', error);
     }
@@ -157,6 +158,15 @@ const PackingList = () => {
     };
   };
 
+  const getTripInfo = () => {
+    if (!packingList?.trip) return null;
+    const { destination, dates } = packingList.trip;
+    return {
+      destination: `${destination?.city}, ${destination?.country}`,
+      duration: dates?.duration
+    };
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -166,6 +176,7 @@ const PackingList = () => {
   }
 
   const stats = getCompletionStats();
+  const tripInfo = getTripInfo();
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -183,9 +194,16 @@ const PackingList = () => {
               <Package className="w-6 h-6 mr-2" />
               Packing List
             </h1>
-            <p className="text-gray-600">
-              {stats.packed} of {stats.total} items packed ({stats.percentage}%)
-            </p>
+            <div className="text-gray-600 space-y-1">
+              {tripInfo && (
+                <p className="text-sm">
+                  {tripInfo.destination} • {tripInfo.duration} days
+                </p>
+              )}
+              <p>
+                {stats.packed} of {stats.total} items packed ({stats.percentage}%)
+              </p>
+            </div>
           </div>
         </div>
 

@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     try {
       const response = await authAPI.getProfile();
-      setUser(response.data);
+      setUser(response.data.user);
     } catch (error) {
       setUser(null);
     } finally {

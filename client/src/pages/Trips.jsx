@@ -19,7 +19,7 @@ const Trips = () => {
   // Fetch user's trips on component mount
   useEffect(() => {
     fetchUserTrips();
-  }, []);
+  }, [trips.length]);
 
   // Fetch public trips when switching to community tab
   useEffect(() => {

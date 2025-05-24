@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { 
   MapPin, 
   Cloud, 
@@ -14,9 +16,8 @@ import {
 } from 'lucide-react';
 
 const Home = () => {
-  // Mock auth state for demo
-  const isAuthenticated = false;
-  const user = null;
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
 
   const features = [
     {
@@ -87,7 +88,7 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               {!isAuthenticated ? (
                 <>
-                  <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center">
+                  <button onClick={() => navigate('/auth')} className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center">
                     Start Planning
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </button>

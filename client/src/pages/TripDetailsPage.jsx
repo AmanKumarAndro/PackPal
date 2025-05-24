@@ -4,7 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import TripDetailsView from '../components/Trips/TripDetails';
 
 const TripDetailsPage = () => {
-  const { id } = useParams();
+    const { id } = useParams();
+    console.log(id);
   const navigate = useNavigate();
 
   const handleBack = () => {

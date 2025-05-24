@@ -22,7 +22,7 @@ export const tripAPI = {
   updateTrip: (id, tripData) => API.put(`/trips/${id}`, tripData),
   deleteTrip: (id) => API.delete(`/trips/${id}`),
   getTripWeather: (id) => API.get(`/trips/${id}/weather`),
-  generateAISuggestions: (id, prompt) => API.post(`/trips/${id}/ai-suggestions`, { prompt }),
+  generateAISuggestions: (id) => API.post(`/trips/${id}/ai-suggestions`),
   getPublicTrips: () => API.get('/trips/public'),
   toggleTripVisibility: (id) => API.patch(`/trips/${id}/visibility`),
 };
@@ -31,7 +31,7 @@ export const tripAPI = {
 export const packingAPI = {
   createPackingList: (tripId) => API.post(`/packing/trip/${tripId}`),
   getPackingList: (tripId) => API.get(`/packing/trip/${tripId}`),
-  generateAIPackingList: (tripId, prompt) => API.post(`/packing/trip/${tripId}/ai-generate`, { prompt }),
+  generateAIPackingList: (tripId) => API.post(`/packing/trip/${tripId}/ai-generate`, { prompt }),
   addCategory: (tripId, name) => API.post(`/packing/trip/${tripId}/category`, { name }),
   deleteCategory: (tripId, categoryId) => API.delete(`/packing/trip/${tripId}/category/${categoryId}`),
   addItem: (tripId, categoryId, itemData) => API.post(`/packing/trip/${tripId}/category/${categoryId}/item`, itemData),
