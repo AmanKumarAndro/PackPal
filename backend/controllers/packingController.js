@@ -73,6 +73,7 @@ const getPackingList = async (req, res) => {
 const generateAIPackingList = async (req, res) => {
   try {
     const { tripId } = req.params;
+    console.log(tripId);
     
     const trip = await Trip.findOne({ _id: tripId, user: req.user._id });
     if (!trip) {
@@ -126,6 +127,7 @@ const generateAIPackingList = async (req, res) => {
       
       // Update trip with packing list reference
       trip.packingList = packingList._id;
+      console.log(trip.packingList);
       await trip.save();
     } else {
       // Merge with existing categories

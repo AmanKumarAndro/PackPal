@@ -199,13 +199,13 @@ const generateAISuggestions = async (req, res) => {
     const { destination, dates, tripType } = trip;
     
     // Generate packing recommendations
-    const packingPrompt = `Generate packing recommendations for a ${tripType} trip to ${destination.city}, ${destination.country} from ${dates.startDate} to ${dates.endDate}. Consider the weather and trip duration.`;
+    const packingPrompt = `Generate packing recommendations for a ${tripType} trip to ${destination.city}, ${destination.country} from ${dates.startDate} to ${dates.endDate}. Consider the weather and trip duration, consise of max 5 lines.`;
     
     // Generate travel tips
-    const tipsPrompt = `Provide helpful travel tips for visiting ${destination.city}, ${destination.country} for a ${tripType} trip. Include local customs, transportation, and safety tips.`;
+    const tipsPrompt = `Provide helpful travel tips for visiting ${destination.city}, ${destination.country} for a ${tripType} trip. Include local customs, transportation, and safety tips, consise of max 5 lines.`;
     
     // Generate attractions
-    const attractionsPrompt = `Suggest top attractions and activities in ${destination.city}, ${destination.country} for a ${tripType} trip. Include brief descriptions and ratings.`;
+    const attractionsPrompt = `Suggest top attractions and activities in ${destination.city}, ${destination.country} for a ${tripType} trip. Include brief descriptions and ratings, consise of max 5 lines.`;
 
     const [packingResult, tipsResult, attractionsResult] = await Promise.all([
       model.generateContent(packingPrompt),
