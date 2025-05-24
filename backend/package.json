@@ -1,0 +1,28 @@
+{
+  "name": "packpal-server",
+  "version": "1.0.0",
+  "description": "**PackPal** is a smart travel assistant that helps users:\r - Plan trips and destinations\r - Get real-time weather information\r - Discover the best travel locations to visit\r - Receive AI-powered packing suggestions based on destination and weather\r - Share their responses and feedback publicly",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.9.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10"
+  }
+}
